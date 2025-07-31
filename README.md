@@ -18,9 +18,31 @@ FireUp PHP Build is a comprehensive PHP development package that helps developer
 
 ### Installation
 
+#### Option 1: Using Composer Create Project (Recommended)
 ```bash
+# Create a new application (requires package to be published on Packagist)
 composer create-project fireup/php-build my-php-app
 cd my-php-app
+```
+
+#### Option 2: Clone and create new app
+```bash
+# Clone the template
+git clone https://github.com/kingjethro999/fireup-build.git
+cd fireup-build
+
+# Create a new application
+php create-app.php my-php-app
+cd my-php-app
+composer install
+```
+
+#### Option 3: Use directly
+```bash
+# Clone and use directly
+git clone https://github.com/kingjethro999/fireup-build.git my-php-app
+cd my-php-app
+composer install
 ```
 
 ### Interactive Development
@@ -205,6 +227,23 @@ Watch for changes and auto-rebuild:
 
 ```bash
 php artisan build --watch
+```
+
+## 📦 Publishing to Packagist
+
+To make `composer create-project fireup/php-build` work, you need to publish this package to Packagist:
+
+1. **Create a Packagist account** at https://packagist.org
+2. **Submit your package** by providing your GitHub repository URL
+3. **Set up webhook** for automatic updates
+4. **Tag releases** in your repository
+
+Once published, users can create new applications with:
+```bash
+composer create-project fireup/php-build my-app
+cd my-app
+php artisan serve
+php artisan chat --web
 ```
 
 ## 🤝 Contributing

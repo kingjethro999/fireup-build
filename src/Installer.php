@@ -32,7 +32,7 @@ class Installer
         }
         
         echo "✅ FireUp PHP Build installed successfully!\n";
-        echo "🚀 Run 'php bin/php-build' to get started\n";
+        echo "🚀 Run 'php artisan' to get started\n";
     }
     
     public static function postCreateProject(): void
@@ -62,8 +62,8 @@ class Installer
         
         echo "🎉 Project created successfully!\n";
         echo "📁 Project structure initialized\n";
-        echo "🚀 Run 'php bin/php-build serve' to start development\n";
-        echo "💬 Run 'php bin/php-build chat' for interactive development\n";
+        echo "🚀 Run 'php artisan serve' to start development\n";
+        echo "💬 Run 'php artisan chat' for interactive development\n";
     }
     
     private static function getIndexPhp(): string
@@ -162,23 +162,23 @@ A clean PHP application built with FireUp PHP Build.
 
 2. Start development server:
    ```bash
-   php bin/php-build serve
+   php artisan serve
    ```
 
 3. Use interactive chat for development:
    ```bash
-   php bin/php-build chat
+   php artisan chat
    ```
 
 ## Available Commands
 
-- `php bin/php-build serve` - Start development server
-- `php bin/php-build chat` - Interactive development chat
-- `php bin/php-build build` - Build and optimize application
-- `php bin/php-build debug` - Debug and validate code
-- `php bin/php-build create project <name>` - Create new project
-- `php bin/php-build create controller <name>` - Create controller
-- `php bin/php-build create model <name>` - Create model
+- `php artisan serve` - Start development server
+- `php artisan chat` - Interactive development chat
+- `php artisan build` - Build and optimize application
+- `php artisan debug` - Debug and validate code
+- `php artisan create project <name>` - Create new project
+- `php artisan create controller <name>` - Create controller
+- `php artisan create model <name>` - Create model
 
 ## Project Structure
 
