@@ -27,7 +27,7 @@
     "api_info": {
         "key": "fireup/php-build",
         "url": "https://fireup-php-build.onrender.com",
-        "version": "1.0.0"
+        "version": "1.1.0"
     },
     "response_format": {
         "include_code_blocks": true,

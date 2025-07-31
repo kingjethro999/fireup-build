@@ -13,7 +13,7 @@ $app = new Application();
 
 // Add aliases for shorter commands
 $app->setName('artisan');
-$app->setVersion('1.0.0');
+$app->setVersion('1.1.0');
 
 // Run the application
 $app->run(); 

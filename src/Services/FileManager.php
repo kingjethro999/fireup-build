@@ -324,7 +324,7 @@ class {$className}
         return "{
     \"name\": \"{$fileName}\",
     \"description\": \"Generated JSON file\",
-    \"version\": \"1.0.0\",
+    \"version\": \"1.1.0\",
     \"data\": {}
 }";
     }

@@ -1,7 +1,7 @@
 {
     "name": "FireUp PHP Build Assistant",
     "description": "An intelligent PHP development assistant that creates clean, well-structured applications using modern PHP practices, OOP principles, and Laravel-style architecture. Specializes in generating concise, production-ready code for PHP projects with proper MVC patterns, database design, and security best practices.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "FireUp Team",
     "features": [
         "Project generation with complete MVC structure",

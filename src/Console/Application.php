@@ -15,7 +15,7 @@ class Application extends BaseApplication
 {
     public function __construct()
     {
-        parent::__construct('PHP Build', '1.0.0');
+        parent::__construct('PHP Build', '1.1.0');
         $this->setCatchExceptions(true);
     }
 

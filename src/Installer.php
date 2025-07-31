@@ -116,7 +116,7 @@ class App
 
 return [
     "name" => "FireUp PHP Build App",
-    "version" => "1.0.0",
+            "version" => "1.1.0",
     "environment" => $_ENV["APP_ENV"] ?? "development",
     "debug" => $_ENV["APP_DEBUG"] ?? true,
     "url" => $_ENV["APP_URL"] ?? "http://localhost:8000",
