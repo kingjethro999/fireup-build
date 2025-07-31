@@ -83,8 +83,9 @@ class ChatService
 
     private function isProjectCreationRequest(string $message): bool
     {
-        $projectKeywords = ['new project', 'create project', 'start project', 'initialize project'];
+        $projectKeywords = ['new project', 'create project', 'start project', 'initialize project', 'create a project', 'make a project'];
         $phpKeywords = ['php project', 'php app', 'php application'];
+        $blogKeywords = ['blog', 'website', 'site', 'app', 'application'];
         
         // Check for project-specific keywords
         foreach ($projectKeywords as $keyword) {
@@ -100,8 +101,28 @@ class ChatService
             }
         }
         
+        // Check for "create" + "blog/website/app" pattern (more natural)
+        if (str_contains($message, 'create') && (
+            str_contains($message, 'blog') || 
+            str_contains($message, 'website') || 
+            str_contains($message, 'site') || 
+            str_contains($message, 'app') || 
+            str_contains($message, 'application')
+        )) {
+            return true;
+        }
+        
         // Check for "create a new" + "project" pattern
         if (str_contains($message, 'create') && str_contains($message, 'new') && str_contains($message, 'project')) {
+            return true;
+        }
+        
+        // Check for "working" + "blog/app" pattern
+        if (str_contains($message, 'working') && (
+            str_contains($message, 'blog') || 
+            str_contains($message, 'app') || 
+            str_contains($message, 'website')
+        )) {
             return true;
         }
         
@@ -164,15 +185,30 @@ class ChatService
 
     private function generateGeneralResponse(string $message): string
     {
-        $responses = [
-            "I can help you with PHP development! Try asking me to:",
-            "• Create a new PHP project",
-            "• Generate classes, functions, or methods", 
-            "• Debug and fix code issues",
-            "• Edit or create files",
-            "• Build complete applications"
-        ];
+        // Try to understand what the user wants
+        if (str_contains($message, 'blog') || str_contains($message, 'website')) {
+            return "I can help you create a blog or website! Try saying:\n" .
+                   "• 'Create a blog project'\n" .
+                   "• 'Create a working blog'\n" .
+                   "• 'Create a new website'\n" .
+                   "• 'Create a PHP blog application'";
+        }
         
-        return implode("\n", $responses);
+        if (str_contains($message, 'create') || str_contains($message, 'make')) {
+            return "I can help you create things! Try saying:\n" .
+                   "• 'Create a new PHP project'\n" .
+                   "• 'Create a blog'\n" .
+                   "• 'Create a User class'\n" .
+                   "• 'Create a UserController'\n" .
+                   "• 'Create a database model'";
+        }
+        
+        return "I can help you with PHP development! Try asking me to:\n" .
+               "• Create a new PHP project or blog\n" .
+               "• Generate classes, functions, or methods\n" .
+               "• Debug and fix code issues\n" .
+               "• Edit or create files\n" .
+               "• Build complete applications\n\n" .
+               "Just tell me what you want to build!";
     }
 } 
