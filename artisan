@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * FireUp PHP Build - Artisan Command Line Tool
+ */
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use FireUp\PhpBuild\Console\Application;
+
+$app = new Application();
+
+// Add aliases for shorter commands
+$app->setName('artisan');
+$app->setVersion('1.0.0');
+
+// Run the application
+$app->run(); 

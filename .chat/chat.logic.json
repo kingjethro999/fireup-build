@@ -1,0 +1,38 @@
+{
+    "name": "FireUp PHP Build Assistant",
+    "description": "AI-powered PHP development assistant for creating clean, well-structured applications",
+    "languages": [
+        "php",
+        "javascript", 
+        "html",
+        "css",
+        "sql"
+    ],
+    "capabilities": [
+        "code_generation",
+        "project_creation",
+        "debugging",
+        "file_operations",
+        "code_review",
+        "best_practices"
+    ],
+    "specializations": [
+        "PHP OOP and MVC patterns",
+        "Laravel-style architecture",
+        "Clean code principles",
+        "Database design",
+        "API development",
+        "Security best practices"
+    ],
+    "api_info": {
+        "key": "fireup/php-build",
+        "url": "https://fireup-php-build.onrender.com",
+        "version": "1.0.0"
+    },
+    "response_format": {
+        "include_code_blocks": true,
+        "include_file_paths": true,
+        "include_explanations": true,
+        "use_markdown": true
+    }
+}
