@@ -1,6 +1,7 @@
 {
     "name": "fireup/php-build",
     "description": "Interactive PHP development tool for creating clean, well-structured applications",
+    "version": "1.0.0",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -57,5 +58,11 @@
         "sort-packages": true
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "create-project": {
+            "name": "fireup/php-build",
+            "description": "Interactive PHP development tool for creating clean, well-structured applications"
+        }
+    }
 } 
