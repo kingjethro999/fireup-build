@@ -102,6 +102,7 @@ class CodeGenerator
     {
         $message = strtolower($message);
         
+        if (str_contains($message, 'landing page') || str_contains($message, 'landing')) return 'landing page';
         if (str_contains($message, 'blog')) return 'blog';
         if (str_contains($message, 'website')) return 'website';
         if (str_contains($message, 'api')) return 'api';
@@ -127,6 +128,9 @@ class CodeGenerator
         
         // Generate structure based on project type
         switch ($projectType) {
+            case 'landing page':
+                $files = array_merge($files, $this->generateLandingPageStructure(basename($this->projectRoot)));
+                break;
             case 'blog':
                 $files = array_merge($files, $this->generateBlogStructure(basename($this->projectRoot)));
                 break;
@@ -651,6 +655,18 @@ Thumbs.db';
     }
 
     // Intelligent structure generation methods
+    private function generateLandingPageStructure(string $projectName): array
+    {
+        return [
+            'src/App.php' => $this->generateLandingPageAppClass(),
+            'src/Controllers/LandingController.php' => $this->generateLandingController(),
+            'templates/layout.html' => $this->generateLandingPageLayoutTemplate(),
+            'templates/home.html' => $this->generateLandingPageTemplate(),
+            '.env.example' => $this->generateEnvExample(),
+            'README.md' => $this->generateLandingPageReadme($projectName)
+        ];
+    }
+
     private function generateBlogStructure(string $projectName): array
     {
         return [
@@ -1565,6 +1581,232 @@ curl -X POST http://localhost:8000/api/users -H "Content-Type: application/json"
 ## Development
 
 This API was created with FireUp PHP Build - an interactive PHP development tool.
+
+## License
+
+MIT License";
+    }
+
+    // Landing page specific methods
+    private function generateLandingPageAppClass(): string
+    {
+        return '<?php
+
+namespace App;
+
+class App
+{
+    public function __construct()
+    {
+        // Initialize landing page application
+    }
+
+    public function run()
+    {
+        // Handle landing page routing
+        $this->handleRoutes();
+    }
+
+    private function handleRoutes()
+    {
+        $path = $_SERVER["REQUEST_URI"] ?? "/";
+        
+        switch ($path) {
+            case "/":
+                $this->showLandingPage();
+                break;
+            default:
+                $this->show404();
+        }
+    }
+
+    private function showLandingPage()
+    {
+        include __DIR__ . "/../templates/home.html";
+    }
+
+    private function show404()
+    {
+        http_response_code(404);
+        echo "<h1>404 - Page Not Found</h1>";
+    }
+}';
+    }
+
+    private function generateLandingController(): string
+    {
+        return '<?php
+
+namespace App\Controllers;
+
+class LandingController
+{
+    public function index()
+    {
+        // Show landing page
+        include __DIR__ . "/../../templates/home.html";
+    }
+}';
+    }
+
+    private function generateLandingPageLayoutTemplate(): string
+    {
+        return '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $title ?? "Landing Page" ?></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="/" class="text-2xl font-bold text-gray-800">Your Brand</a>
+                <div class="space-x-6">
+                    <a href="#features" class="text-gray-600 hover:text-gray-800">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-800">Pricing</a>
+                    <a href="#contact" class="text-gray-600 hover:text-gray-800">Contact</a>
+                    <a href="#cta" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <?= $content ?? "" ?>
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 Your Brand. All rights reserved.</p>
+            <p class="mt-2 text-gray-400">Built with FireUp PHP Build</p>
+        </div>
+    </footer>
+</body>
+</html>';
+    }
+
+    private function generateLandingPageTemplate(): string
+    {
+        return '<div class="bg-white">
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div class="container mx-auto px-4 py-20">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold mb-6">Welcome to Your Amazing Product</h1>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">
+                    Transform your business with our innovative solution. 
+                    Simple, powerful, and designed for success.
+                </p>
+                <div class="space-x-4">
+                    <a href="#cta" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
+                        Get Started Free
+                    </a>
+                    <a href="#demo" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600">
+                        Watch Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+                    <p class="text-gray-600">Experience blazing fast performance that keeps your users engaged.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Reliable</h3>
+                    <p class="text-gray-600">Built with reliability in mind, ensuring your business never stops.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Secure</h3>
+                    <p class="text-gray-600">Enterprise-grade security to protect your data and your users.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div id="cta" class="bg-gray-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+            <p class="text-xl text-gray-600 mb-8">Join thousands of satisfied customers today.</p>
+            <a href="#" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700">
+                Start Your Free Trial
+            </a>
+        </div>
+    </div>
+</div>';
+    }
+
+    private function generateLandingPageReadme(string $projectName): string
+    {
+        return "# {$projectName} - Landing Page
+
+A modern, responsive landing page built with FireUp PHP Build.
+
+## Features
+
+- Modern, responsive design
+- Hero section with call-to-action
+- Features showcase
+- Clean, professional layout
+- Built with Tailwind CSS
+
+## Installation
+
+1. Clone this repository
+2. Run `composer install`
+3. Copy `.env.example` to `.env` and configure your environment
+4. Start the development server: `php -S localhost:8000 -t public`
+
+## Usage
+
+- Landing page is served at `/`
+- Responsive design works on all devices
+- Easy to customize content and styling
+
+## Structure
+
+- `src/Controllers/` - Landing page controller
+- `templates/` - Landing page templates
+- `public/` - Web root
+
+## Customization
+
+Edit the templates to match your brand:
+- Update colors in the CSS classes
+- Change the hero text and call-to-action
+- Modify the features section
+- Add your own content and sections
+
+## Development
+
+This landing page was created with FireUp PHP Build - an interactive PHP development tool.
 
 ## License
 

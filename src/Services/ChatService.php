@@ -84,8 +84,8 @@ class ChatService
     private function isProjectCreationRequest(string $message): bool
     {
         // More intelligent detection - any request to create something substantial
-        $createKeywords = ['create', 'make', 'build', 'develop', 'start'];
-        $substantialKeywords = ['project', 'app', 'application', 'website', 'blog', 'system', 'platform', 'tool'];
+        $createKeywords = ['create', 'make', 'build', 'develop', 'start', 'can we create', 'can we make'];
+        $substantialKeywords = ['project', 'app', 'application', 'website', 'blog', 'system', 'platform', 'tool', 'landing page', 'page'];
         
         // Check if user wants to create something substantial
         foreach ($createKeywords as $create) {
@@ -99,6 +99,11 @@ class ChatService
         // Check for "using existing directory" or "analyse files" patterns
         if ((str_contains($message, 'using') && str_contains($message, 'existing')) ||
             (str_contains($message, 'analyse') && str_contains($message, 'files'))) {
+            return true;
+        }
+        
+        // Check for "can we" + "create" patterns (more conversational)
+        if (str_contains($message, 'can we') && str_contains($message, 'create')) {
             return true;
         }
         
