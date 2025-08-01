@@ -83,46 +83,22 @@ class ChatService
 
     private function isProjectCreationRequest(string $message): bool
     {
-        $projectKeywords = ['new project', 'create project', 'start project', 'initialize project', 'create a project', 'make a project'];
-        $phpKeywords = ['php project', 'php app', 'php application'];
-        $blogKeywords = ['blog', 'website', 'site', 'app', 'application'];
+        // More intelligent detection - any request to create something substantial
+        $createKeywords = ['create', 'make', 'build', 'develop', 'start'];
+        $substantialKeywords = ['project', 'app', 'application', 'website', 'blog', 'system', 'platform', 'tool'];
         
-        // Check for project-specific keywords
-        foreach ($projectKeywords as $keyword) {
-            if (str_contains($message, $keyword)) {
-                return true;
+        // Check if user wants to create something substantial
+        foreach ($createKeywords as $create) {
+            foreach ($substantialKeywords as $substantial) {
+                if (str_contains($message, $create) && str_contains($message, $substantial)) {
+                    return true;
+                }
             }
         }
         
-        // Check for PHP project keywords
-        foreach ($phpKeywords as $keyword) {
-            if (str_contains($message, $keyword)) {
-                return true;
-            }
-        }
-        
-        // Check for "create" + "blog/website/app" pattern (more natural)
-        if (str_contains($message, 'create') && (
-            str_contains($message, 'blog') || 
-            str_contains($message, 'website') || 
-            str_contains($message, 'site') || 
-            str_contains($message, 'app') || 
-            str_contains($message, 'application')
-        )) {
-            return true;
-        }
-        
-        // Check for "create a new" + "project" pattern
-        if (str_contains($message, 'create') && str_contains($message, 'new') && str_contains($message, 'project')) {
-            return true;
-        }
-        
-        // Check for "working" + "blog/app" pattern
-        if (str_contains($message, 'working') && (
-            str_contains($message, 'blog') || 
-            str_contains($message, 'app') || 
-            str_contains($message, 'website')
-        )) {
+        // Check for "using existing directory" or "analyse files" patterns
+        if ((str_contains($message, 'using') && str_contains($message, 'existing')) ||
+            (str_contains($message, 'analyse') && str_contains($message, 'files'))) {
             return true;
         }
         
